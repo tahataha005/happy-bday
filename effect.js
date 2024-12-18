@@ -1,139 +1,171 @@
-$(window).load(function(){
-	$('.loading').css('opacity', '0');
-	$('.container').css('opacity', '1');
-});
-$(document).ready(function(){
-	var vw;
-	$(window).resize(function(){
-		vw = $(window).width()/2;
-		$('#b1,#b2,#b3,#b4,#b5,#b6,#b7,#b8,#b9').stop();
-		$('#b11').animate({top:240, left: vw-350},500);
-		$('#b22').animate({top:240, left: vw-250},500);
-		$('#b33').animate({top:240, left: vw-150},500);
-		$('#b44').animate({top:240, left: vw-50},500);
-		$('#b55').animate({top:240, left: vw+50},500);
-		$('#b66').animate({top:240, left: vw+150},500);
-		$('#b77').animate({top:240, left: vw+250},500);
-		$('#b88').animate({top:240, left: vw+300},500);
-		$('#b99').animate({top:240, left: vw+350},500);
-	});
+document.addEventListener("DOMContentLoaded", () => {
+  // Lights turning on effect
+  const turnOnButton = document.getElementById("turn_on");
 
-	$('#turn_on').click(function(){
-		$('#bulb_yellow, #bulb_red, #bulb_blue, #bulb_green, #bulb_pink, #bulb_orange').addClass('bulb-glow-yellow bulb-glow-red bulb-glow-blue bulb-glow-green bulb-glow-pink bulb-glow-orange');
-		$('body').addClass('peach');
-		$(this).fadeOut('slow').delay(5000).promise().done(function(){
-			$('#play').fadeIn('slow');
-		});
-	});
-	$('#play').click(function(){
-		var audio = $('.song')[0];
-        audio.play();
-        $('#bulb_yellow, #bulb_red, #bulb_blue, #bulb_green, #bulb_pink, #bulb_orange').addClass('bulb-glow-yellow-after bulb-glow-red-after bulb-glow-blue-after bulb-glow-green-after bulb-glow-pink-after bulb-glow-orange-after');
-		$('body').css('backgroud-color','#FFF');
-		$('body').addClass('peach-after');
-		$(this).fadeOut('slow').delay(6000).promise().done(function(){
-			$('#bannar_coming').fadeIn('slow');
-		});
-	});
+  turnOnButton.addEventListener("click", () => {
+    let index = 0;
+    document.querySelectorAll(".bulb").forEach((bulb) => {
+      setTimeout(() => {
+        bulb.classList.add("active");
+      }, 300 * index);
+      index++;
+    });
 
-	$('#bannar_coming').click(function(){
-		$('.bannar').addClass('bannar-come');
-		$(this).fadeOut('slow').delay(6000).promise().done(function(){
-			$('#balloons_flying').fadeIn('slow');
-		});
-	});
+    document.querySelector("body").classList.add("lit-body");
 
-	function loopAnimation(elementId) {
-		var randleft = 1000*Math.random();
-		var randtop = 500*Math.random();
-		$(elementId).animate({left:randleft,bottom:randtop},10000,function(){
-			loopAnimation(elementId);
-		});
-	}
+    console.log("Lights turned on!");
 
-	$('#balloons_flying').click(function(){
-		$('.balloon-border').animate({top:-500},8000);
-		$('#b1,#b4,#b5,#b7,#b9').addClass('balloons-rotate-behaviour-one');
-		$('#b2,#b3,#b6,#b8').addClass('balloons-rotate-behaviour-two');
-		loopAnimation('#b1');
-		loopAnimation('#b2');
-		loopAnimation('#b3');
-		loopAnimation('#b4');
-		loopAnimation('#b5');
-		loopAnimation('#b6');
-		loopAnimation('#b7');
-		loopAnimation('#b8');
-		loopAnimation('#b9');
-		$(this).fadeOut('slow').delay(4000).promise().done(function(){
-			$('#cake_fadein').fadeIn('slow');
-		});
-	});	
+    setTimeout(() => {
+      turnOnButton.classList.add("hide-btn");
+      setTimeout(() => {
+        turnOnButton.classList.add("hide");
+      }, 2000);
+    }, 2000);
 
-	$('#cake_fadein').click(function(){
-		$('.cake').fadeIn('slow');
-		$(this).fadeOut('slow').delay(2000).promise().done(function(){
-			$('#light_candle').fadeIn('fast');
-		});
-	});
+    setTimeout(() => {
+      playButton.classList.remove("hide");
+    }, 4000);
+  });
 
-	$('#light_candle').click(function(){
-		$('.fuego').fadeIn('slow');
-		$(this).fadeOut('slow').promise().done(function(){
-			$('#wish_message').fadeIn('slow');
-		});
-	});
+  // Play music
+  const playButton = document.getElementById("play");
+  playButton.addEventListener("click", () => {
+    const audio = document.querySelector(".song");
+    if (audio) {
+      audio.play();
 
-	$('#wish_message').click(function(){
-		vw = $(window).width()/2;
-		$('#b1,#b2,#b3,#b4,#b5,#b6,#b7,#8,#9').stop();
-		$('#b1').attr('id','b11');
-		$('#b2').attr('id','b22')
-		$('#b3').attr('id','b33')
-		$('#b4').attr('id','b44')
-		$('#b5').attr('id','b55')
-		$('#b6').attr('id','b66')
-		$('#b7').attr('id','b77')
-		$('#b8').attr('id','b88')
-		$('#b9').attr('id','b99')
-		$('#b11').animate({top:240, left: vw-400},500);
-		$('#b22').animate({top:240, left: vw-300},500);
-		$('#b33').animate({top:240, left: vw-200},500);
-		$('#b44').animate({top:240, left: vw-100},500);
-		$('#b55').animate({top:240, left: vw-50},500);
-		$('#b66').animate({top:240, left: vw+50},500);
-		$('#b77').animate({top:240, left: vw+100},500);
-		$('#b88').animate({top:240, left: vw+200},500);
-		$('#b99').animate({top:240, left: vw+300},500);
-		$('#b1010').animate({top:240, left: vw+400},500);
-		$('.balloons').css('opacity','0.9');
-		$('.balloons h2').fadeIn(3000);
-		$(this).fadeOut('slow').delay(3000).promise().done(function(){
-			$('#story').fadeIn('slow');
-		});
-	});
-	
-	$('#story').click(function(){
-		$(this).fadeOut('slow');
-		$('.cake').fadeOut('fast').promise().done(function(){
-			$('.message').fadeIn('slow');
-		});
-		
-		var i;
+      setTimeout(() => {
+        playButton.classList.add("hide-btn");
+        setTimeout(() => {
+          playButton.classList.add("hide");
+        }, 2000);
+      }, 2000);
 
-		function msgLoop (i) {
-			$("p:nth-child("+i+")").fadeOut('slow').delay(800).promise().done(function(){
-			i=i+1;
-			$("p:nth-child("+i+")").fadeIn('slow').delay(1000);
-			if(i==50){
-				$("p:nth-child(49)").fadeOut('slow').promise().done(function () {
-					$('.cake').fadeIn('fast');
-				});
-			}
-			else{
-				msgLoop(i);
-			}			
-		});
-		}
-		msgLoop(0);
-	});
+      setTimeout(() => {
+        bannerButton.classList.remove("hide");
+      }, 4000);
+
+      console.log("Music is playing!");
+    }
+  });
+
+  // Show banner
+  const bannerButton = document.getElementById("bannar_coming");
+  bannerButton.addEventListener("click", () => {
+    const banner = document.querySelector(".bannar");
+    if (banner) {
+      banner.classList.add("visible");
+
+      setTimeout(() => {
+        bannerButton.classList.add("hide-btn");
+        setTimeout(() => {
+          bannerButton.classList.add("hide");
+        }, 2000);
+      }, 2000);
+
+      setTimeout(() => {
+        balloonsButton.classList.remove("hide");
+      }, 4000);
+
+      console.log("Banner is visible!");
+    }
+  });
+
+  // Balloons flying effect
+  const balloonsButton = document.getElementById("balloons_flying");
+  balloonsButton.addEventListener("click", () => {
+    document.querySelector(".balloon-border").classList.add("fly");
+
+    setTimeout(() => {
+      document.querySelector(".balloons-container").classList.add("fly");
+    }, 5000);
+
+    setTimeout(() => {
+      balloonsButton.classList.add("hide-btn");
+      setTimeout(() => {
+        balloonsButton.classList.add("hide");
+      }, 2000);
+    }, 8000);
+
+    setTimeout(() => {
+      cakeButton.classList.remove("hide");
+    }, 13000);
+
+    console.log("Balloons are flying!");
+  });
+
+  // Cake fade-in effect
+  const cakeButton = document.getElementById("cake_fadein");
+  cakeButton.addEventListener("click", () => {
+    const cake = document.querySelector(".cake");
+    if (cake) {
+      cake.classList.add("fade-in");
+
+      setTimeout(() => {
+        cakeButton.classList.add("hide-btn");
+        setTimeout(() => {
+          cakeButton.classList.add("hide");
+        }, 2000);
+      }, 2000);
+
+      setTimeout(() => {
+        lightCandleButton.classList.remove("hide");
+      }, 4000);
+
+      console.log("Cake is appearing!");
+    }
+  });
+
+  // Light candles
+  const lightCandleButton = document.getElementById("light_candle");
+  lightCandleButton.addEventListener("click", () => {
+    document.querySelector(".candle").classList.add("fade-in");
+    setTimeout(() => {
+      document.querySelector(".flame").classList.add("fade-in");
+    }, 2000);
+
+    setTimeout(() => {
+      lightCandleButton.classList.add("hide-btn");
+      setTimeout(() => {
+        lightCandleButton.classList.add("hide");
+      }, 2000);
+    }, 2000);
+
+    setTimeout(() => {
+      wishMessageButton.classList.remove("hide");
+    }, 4000);
+
+    console.log("Candles are lit!");
+  });
+
+  // Display wish message
+  const wishMessageButton = document.getElementById("wish_message");
+  wishMessageButton.addEventListener("click", () => {
+    document.querySelector(".cake").classList.remove("fade-in");
+    document.querySelector(".messages").classList.add("fade-in");
+    const messages = document.querySelectorAll(".message");
+    for (let i = 0; i < messages.length; i++) {
+      const message = messages[i];
+
+      setTimeout(() => {
+        message.classList.add("fade-in");
+
+        setTimeout(() => {
+          message.classList.remove("fade-in");
+          setTimeout(() => {
+            message.classList.add("hide");
+          }, 2000);
+        }, 3000);
+      }, 4000 * i);
+
+      if (i === messages.length - 1) {
+        setTimeout(() => {
+          document.querySelector(".messages").classList.add("hide");
+          document.querySelector(".cake").classList.add("fade-in");
+          document.querySelector(".flame").classList.add("fade-in");
+          document.querySelector(".candle").classList.add("fade-in");
+        }, 4000 * (i + 1));
+      }
+    }
+  });
 });
