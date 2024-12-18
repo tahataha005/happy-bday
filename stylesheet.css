@@ -41,12 +41,12 @@ button {
 }
 
 button.btn-primary {
-  background-color: #007bff;
+  background-color: #ff00aa;
   color: #fff;
 }
 
 button.btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #ff54c6;
 }
 
 /* Lights (Bulbs) */
@@ -99,7 +99,7 @@ button.btn-primary:hover {
 
 .balloon-border {
   position: fixed;
-  top: 120vh;
+  top: -120vh;
   left: 0;
   object-fit: fill;
   height: 100vh;
